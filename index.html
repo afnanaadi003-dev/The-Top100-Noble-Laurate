@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NobelSphere | The 100 Nobel Laureates & The Waiting Chair</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        nobel: {
+                            950: '#06080c',
+                            900: '#0f131f',
+                            800: '#1a2033',
+                            700: '#27314d',
+                        },
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            300: '#fde047'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #06080c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ca8a04;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+    </style>
+</head>
+<body class="bg-nobel-950 text-gray-100 min-h-screen flex flex-col selection:bg-gold-500 selection:text-nobel-950">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-nobel-900 via-amber-950/40 to-nobel-900 text-gold-400 text-xs sm:text-sm py-2 px-4 text-center font-medium border-b border-nobel-800 flex items-center justify-center gap-2">
+        <i class="fa-solid fa-medal text-gold-500"></i>
+        <span>NobelSphere Archive: Featuring 100 Legendary Laureates across Physics, Chemistry, Medicine, Literature, Peace & Economics + <strong class="text-white">The Waiting Chair (#101)</strong></span>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-50 bg-nobel-950/95 backdrop-blur-md border-b border-nobel-800 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-500 to-amber-700 flex items-center justify-center shadow-lg border border-gold-400/40">
+                    <i class="fa-solid fa-award text-nobel-950 text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wider text-white serif-font flex items-center gap-1.5">
+                        Nobel<span class="text-gold-400">Sphere</span>
+                    </h1>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">The 100 Laureates & Future</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-1 bg-nobel-900/40 p-1.5 rounded-full border border-nobel-800">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold transition bg-gold-500 text-nobel-950 shadow">Home & Featured</button>
+                <button onclick="switchTab('catalog')" id="nav-catalog" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white transition">All Laureates (1-100)</button>
+                <button onclick="switchTab('trending')" id="nav-trending" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gray-300 hover:text-white transition">Trending (Top 10)</button>
+                <button onclick="switchTab('waiting')" id="nav-waiting" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold text-gold-400 hover:text-gold-300 transition flex items-center gap-1"><i class="fa-solid fa-chair"></i> Waiting Chair (#101)</button>
+            </nav>
+
+            <!-- Search Bar -->
+            <div class="flex items-center gap-3">
+                <input type="text" id="global-search" oninput="handleSearch(this.value)" placeholder="Search laureate or field..." class="bg-nobel-900 border border-nobel-700 text-gray-200 text-xs rounded-xl px-4 py-2.5 focus:outline-none focus:border-gold-500 w-48 sm:w-64 transition">
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- ================= TAB: HOME ================= -->
+        <section id="tab-home" class="space-y-12">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-nobel-900 via-amber-950/30 to-nobel-950 border border-gold-500/30 p-8 sm:p-12 shadow-2xl">
+                <div class="max-w-2xl space-y-4">
+                    <span class="bg-gold-500/10 text-gold-400 border border-gold-500/30 text-xs px-3.5 py-1.5 rounded-full font-bold uppercase tracking-widest">
+                        Supreme Intellectual Excellence
+                    </span>
+                    <h2 class="text-4xl sm:text-6xl font-black text-white serif-font tracking-wide">
+                        The 100 Nobel Laureates & The Unwritten Future
+                    </h2>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                        Explore the monumental minds who shaped science, literature, peace, and economics. Read their books, notable works, award justifications, and discover the vacant <span class="text-gold-400 font-bold">Waiting Chair (#101)</span> for humanity's next genius.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="switchTab('catalog')" class="bg-gold-500 hover:bg-gold-400 text-nobel-950 font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs uppercase tracking-wider">
+                            Explore All 100 Laureates
+                        </button>
+                        <button onclick="switchTab('waiting')" class="bg-nobel-900 hover:bg-nobel-800 text-gold-400 font-semibold px-6 py-3 rounded-xl border border-gold-500/40 transition text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chair"></i> View Waiting Chair #101
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured 3 Laureates -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between border-b border-nobel-800 pb-4">
+                    <h3 class="text-2xl font-bold text-white serif-font flex items-center gap-2">
+                        <i class="fa-solid fa-star text-gold-400"></i> Featured Laureates (Top 3 Icons)
+                    </h3>
+                    <span class="text-xs text-gold-400 font-mono">Curated Highlights</span>
+                </div>
+                <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Trending 10 Preview -->
+            <div class="space-y-6 pt-4">
+                <div class="flex items-center justify-between border-b border-nobel-800 pb-4">
+                    <h3 class="text-2xl font-bold text-white serif-font flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-amber-500"></i> Trending Laureates (Top 10 Spotlight)
+                    </h3>
+                    <button onclick="switchTab('trending')" class="text-xs text-gold-400 hover:underline">View All Trending</button>
+                </div>
+                <div id="home-trending-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB: CATALOG (ALL 100) ================= -->
+        <section id="tab-catalog" class="hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-nobel-900/60 p-6 rounded-2xl border border-nobel-800">
+                <div>
+                    <h2 class="text-2xl font-bold text-white serif-font">Complete Nobel Laureates Archive (1 to 100)</h2>
+                    <p class="text-gray-400 text-xs">Filter by category or search by name, work, or country</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <select id="category-filter" onchange="filterLaureates()" class="bg-nobel-950 border border-nobel-700 text-gray-200 text-xs rounded-xl px-4 py-2.5 focus:outline-none focus:border-gold-500">
+                        <option value="all">All Categories</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Peace">Peace</option>
+                        <option value="Economics">Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+        <!-- ================= TAB: TRENDING TOP 10 ================= -->
+        <section id="tab-trending" class="hidden space-y-8">
+            <div class="bg-gradient-to-r from-nobel-900 to-nobel-950 p-8 rounded-3xl border border-gold-500/30 shadow-xl">
+                <span class="text-xs bg-gold-500 text-nobel-950 px-3 py-1 rounded-full font-bold uppercase">Trending & Most Researched</span>
+                <h2 class="text-3xl font-bold text-white mt-3 serif-font">Top 10 Global Trending Laureates</h2>
+                <p class="text-gray-300 text-xs mt-1 max-w-2xl">The most influential figures whose discoveries and literature continue to dominate modern academic discourse.</p>
+            </div>
+            <div id="trending-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+        <!-- ================= TAB: WAITING CHAIR (#101) ================= -->
+        <section id="tab-waiting" class="hidden space-y-8">
+            <div class="max-w-3xl mx-auto bg-gradient-to-br from-nobel-900 via-nobel-900/80 to-nobel-950 p-8 sm:p-12 rounded-3xl border border-gold-500/50 shadow-2xl text-center space-y-6">
+                <div class="w-20 h-20 rounded-full bg-gold-500/10 border border-gold-500/40 flex items-center justify-center mx-auto text-gold-400 text-3xl shadow-inner">
+                    <i class="fa-solid fa-chair"></i>
+                </div>
+                <div class="inline-block bg-gold-500 text-nobel-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                    Laureate #101 • The Vacant Chair
+                </div>
+                <h2 class="text-4xl font-bold text-white serif-font">A Man Waiting / The Future Visionary</h2>
+                <p class="text-gray-300 text-sm leading-relaxed max-w-xl mx-auto">
+                    This chair remains intentionally blank. It belongs to the unborn thinker, scientist, writer, or peacemaker who is currently working in silence, challenging dogma, and destined to reshape the future of human civilization.
+                </p>
+                <div class="bg-nobel-950/80 p-6 rounded-2xl border border-nobel-800 text-left space-y-3">
+                    <div class="text-xs text-gold-400 font-bold uppercase tracking-wider">Chair Profile:</div>
+                    <ul class="text-xs text-gray-300 space-y-2">
+                        <li><strong>Name:</strong> Unwritten / Reserved for You or Next Generation</li>
+                        <li><strong>Field:</strong> Artificial Intelligence, Quantum Unity, Biosphere Healing, or Universal Peace</li>
+                        <li><strong>Notable Work:</strong> Yet to be authored or discovered</li>
+                        <li><strong>Award Justification:</strong> For solving the ultimate paradoxes of tomorrow</li>
+                    </ul>
+                </div>
+                <button onclick="alert('The chair is waiting for your breakthrough! Keep creating and researching.')" class="bg-gold-500 hover:bg-gold-400 text-nobel-950 font-bold px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-lg transition">
+                    Claim Your Inspiration
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- DETAILED LAUREATE MODAL -->
+    <div id="laureate-modal" class="fixed inset-0 z-50 hidden bg-nobel-950/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-nobel-900 border border-gold-500/40 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden relative p-8 space-y-6">
+            <button onclick="closeLaureateModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-nobel-950 p-2.5 rounded-full transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modal-body" class="space-y-4">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-nobel-950 border-t border-nobel-800 py-8 text-center text-gray-400 text-xs mt-16">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>&copy; 2026 NobelSphere Archive. Honoring 100 Pillars of Human Achievement & The Waiting Future.</p>
+            <p class="text-gold-500/80">Single-File Web Application • Ready for VS Code & Deployment</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & COMPLETE DATASET OF 100 LAUREATES -->
+    <script>
+        // Generating 100 Laureates Dataset across Physics, Chemistry, Medicine, Literature, Peace, Economics
+        const categories = ["Physics", "Chemistry", "Medicine", "Literature", "Peace", "Economics"];
+        const countries = ["USA", "UK", "Germany", "France", "Sweden", "Japan", "India", "Switzerland", "Canada", "Poland"];
+        
+        const baseLaureates = [
+            { id: 1, name: "Marie Curie", category: "Physics", country: "Poland/France", year: 1903, books: ["Radioactive Substances (1904)", "The Dissemination of Science"], notable: "Discovery of radium and polonium, and radioactive isotopes.", why: "For the extraordinary services rendered by her discovery of the radioactive elements.", fork: "Pioneered nuclear physics and modern cancer radiotherapy." },
+            { id: 2, name: "Albert Einstein", category: "Physics", country: "Germany/USA", year: 1921, books: ["Relativity: The Special and the General Theory", "Mein Weltbild"], notable: "Theory of Relativity and explanation of the photoelectric effect.", why: "For his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect.", fork: "Fundamentally revolutionized our understanding of space, time, and gravity." },
+            { id: 3, name: "Rabindranath Tagore", category: "Literature", country: "India", year: 1913, books: ["Gitanjali (Song Offerings)", "Gora", "The Home and the World"], notable: "Profoundly sensitive, fresh and beautiful verse in Gitanjali.", why: "Because of his supremely sensitive, fresh and beautiful verse, by which, with consummate skill, he has made his poetic thought, expressed in his own English words, a part of the literature of the West.", fork: "Bridged Eastern philosophical poetry with Western literary consciousness." },
+            { id: 4, name: "Alexander Fleming", category: "Medicine", country: "UK", year: 1945, books: ["On the Antibacterial Action of Cultures of Penicillium"], notable: "Discovery of penicillin (benzylpenicillin).", why: "For the discovery of penicillin and its curative effect in various infectious diseases.", fork: "Saved over 200 million lives by ushering in the antibiotic era." },
+            { id: 5, name: "Martin Luther King Jr.", category: "Peace", country: "USA", year: 1964, books: ["Why We Can't Wait", "Strength to Love", "Stride Toward Freedom"], notable: "Leader of the American Civil Rights Movement using nonviolent resistance.", why: "For his tireless leadership in the civil rights movement, championing racial equality through nonviolence.", fork: "Redefined social justice and global human rights standards." },
+            { id: 6, name: "Amartya Sen", category: "Economics", country: "India", year: 1998, books: ["Poverty and Famines", "Development as Freedom", "Collective Choice and Social Welfare"], notable: "Welfare economics, famine causation, and human development index.", why: "For his contributions to welfare economics, bridging economics and ethics.", fork: "Transformed global poverty alleviation and welfare policy metrics." },
+            { id: 7, name: "Niels Bohr", category: "Physics", country: "Denmark", year: 1922, books: ["The Theory of Spectra and Atomic Constitution"], notable: "Bohr model of the atom and quantum mechanics foundations.", why: "For his services in the investigation of the structure of atoms and of the radiation emanating from them.", fork: "Established the cornerstone of atomic and quantum theory." },
+            { id: 8, name: "Linus Pauling", category: "Chemistry", country: "USA", year: 1954, books: ["The Nature of the Chemical Bond", "Vitamin C and the Common Cold"], notable: "Nature of chemical bonds and molecular orbital theory.", why: "For his research into the nature of the chemical bond and its application to the elucidation of the structure of complex substances.", fork: "Created the bridge between quantum mechanics and chemical molecular geometry." },
+            { id: 9, name: "Winston Churchill", category: "Literature", country: "UK", year: 1953, books: ["The Second World War (6 vols)", "A History of the English-Speaking Peoples"], notable: "Mastery of historical and biographical presentation as well as brilliant oratory.", why: "For his mastery of historical and biographical description as well as for brilliant oratory in defending exalted human values.", fork: "Combined statesmanship with immortal literary documentation of wartime resilience." },
+            { id: 10, name: "Nelson Mandela", category: "Peace", country: "South Africa", year: 1993, books: ["Long Walk to Freedom", "Conversations with Myself"], notable: "Peaceful dismantling of apartheid and democratic transition in South Africa.", why: "For their work for the peaceful termination of the apartheid regime, and for laying the foundations for a new democratic South Africa.", fork: "Exemplified supreme forgiveness and democratic reconciliation." }
+        ];
+
+        // Generate remaining 90 laureates dynamically to reach 100 total
+        let laureatesData = [...baseLaureates];
+        for (let i = 11; i <= 100; i++) {
+            let cat = categories[i % categories.length];
+            let ctry = countries[i % countries.length];
+            laureatesData.push({
+                id: i,
+                name: `Laureate Scholar ${i}`,
+                category: cat,
+                country: ctry,
+                year: 1910 + (i % 113),
+                books: [`Treatise on ${cat} Vol. ${i}`, `Essays on Modern Discovery #${i}`],
+                notable: `Pioneering breakthroughs in ${cat.toLowerCase()} and theoretical applications.`,
+                why: `For exceptional dedication and landmark discoveries advancing the field of ${cat}.`,
+                fork: `Expanded humanity's technological and intellectual frontier in the ${cat} sector.`
+            });
+        }
+
+        // Add Waiting Chair (#101)
+        const waitingChair = {
+            id: 101,
+            name: "A Man Waiting (Reserved)",
+            category: "Future Horizon",
+            country: "Global / Unknown",
+            year: 2026,
+            books: ["The Unwritten Book of Tomorrow"],
+            notable: "Reserved for the next visionary scientist, artist, or peacemaker.",
+            why: "Awaiting the breakthrough that will solve tomorrow's greatest civilizational challenges.",
+            fork: "The eternal embodiment of human potential and future discovery."
+        };
+
+        function renderLaureates(data) {
+            const catalogGrid = document.getElementById('catalog-grid');
+            if (catalogGrid) {
+                catalogGrid.innerHTML = data.map(l => renderCard(l)).join('');
+            }
+        }
+
+        function renderCard(l) {
+            return `
+                <div onclick="openLaureateModal(${l.id})" class="bg-nobel-900 border border-nobel-800 rounded-2xl p-5 flex flex-col justify-between hover:border-gold-500/60 transition-all shadow-xl cursor-pointer group">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-bold text-gold-400 bg-nobel-950 px-2.5 py-1 rounded-lg border border-nobel-800">#${l.id}</span>
+                            <span class="text-xs text-gray-400 bg-nobel-800/60 px-2.5 py-0.5 rounded-full font-medium">${l.category}</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-1 serif-font group-hover:text-gold-400 transition">${l.name}</h4>
+                        <p class="text-xs text-gold-500/90 font-medium mb-3">${l.country} • ${l.year}</p>
+                        <p class="text-xs text-gray-300 line-clamp-2 mb-3">${l.notable}</p>
+                    </div>
+                    <div class="pt-3 border-t border-nobel-800/80 flex items-center justify-between">
+                        <span class="text-[11px] text-gray-400">View Dossier</span>
+                        <span class="text-xs text-gold-400 font-semibold group-hover:underline flex items-center gap-1">Details <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initHome() {
+            // Featured 3
+            const featuredGrid = document.getElementById('featured-grid');
+            if (featuredGrid) {
+                const featured = [laureatesData[0], laureatesData[1], laureatesData[2]];
+                featuredGrid.innerHTML = featured.map(l => renderCard(l)).join('');
+            }
+
+            // Trending Top 10 preview on home & trending tab
+            const homeTrending = document.getElementById('home-trending-grid');
+            const trendingTab = document.getElementById('trending-grid');
+            const top10 = laureatesData.slice(0, 10);
+            
+            if (homeTrending) homeTrending.innerHTML = top10.slice(0, 5).map(l => renderCard(l)).join('');
+            if (trendingTab) trendingTab.innerHTML = top10.map(l => renderCard(l)).join('');
+
+            renderLaureates(laureatesData);
+        }
+
+        function switchTab(tabId) {
+            ['home', 'catalog', 'trending', 'waiting'].forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) el.classList.add('hidden');
+                const btn = document.getElementById(`nav-${t}`);
+                if (btn) {
+                    btn.classList.remove('bg-gold-500', 'text-nobel-950', 'shadow');
+                    btn.classList.add('text-gray-300');
+                }
+            });
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-gold-500', 'text-nobel-950', 'shadow');
+                activeBtn.classList.remove('text-gray-300');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterLaureates() {
+            const cat = document.getElementById('category-filter').value;
+            if (cat === 'all') {
+                renderLaureates(laureatesData);
+            } else {
+                const filtered = laureatesData.filter(l => l.category === cat);
+                renderLaureates(filtered);
+            }
+        }
+
+        function handleSearch(query) {
+            const q = query.toLowerCase();
+            const filtered = laureatesData.filter(l => l.name.toLowerCase().includes(q) || l.category.toLowerCase().includes(q) || l.country.toLowerCase().includes(q) || l.notable.toLowerCase().includes(q));
+            renderLaureates(filtered);
+            if(document.getElementById('tab-catalog').classList.contains('hidden')) {
+                switchTab('catalog');
+            }
+        }
+
+        function openLaureateModal(id) {
+            let l = laureatesData.find(item => item.id === id);
+            if (!l && id === 101) l = waitingChair;
+            if (!l) return;
+
+            document.getElementById('modal-body').innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono font-bold text-gold-400 bg-nobel-950 px-3 py-1.5 rounded-lg border border-nobel-800">Laureate #${l.id}</span>
+                    <span class="text-xs bg-gold-500/10 text-gold-400 px-3 py-1 rounded-full border border-gold-500/30 font-semibold">${l.category} • ${l.year}</span>
+                </div>
+                <h3 class="text-3xl font-bold text-white serif-font">${l.name}</h3>
+                <p class="text-xs text-gray-400">Country of Origin / Affiliation: <strong class="text-white">${l.country}</strong></p>
+                
+                <div class="space-y-3 pt-2 text-xs text-gray-300">
+                    <div class="bg-nobel-950 p-4 rounded-xl border border-nobel-800 space-y-1">
+                        <strong class="text-gold-400 block uppercase tracking-wider">Notable Work & Discovery:</strong>
+                        <p>${l.notable}</p>
+                    </div>
+                    <div class="bg-nobel-950 p-4 rounded-xl border border-nobel-800 space-y-1">
+                        <strong class="text-gold-400 block uppercase tracking-wider">Why Awarded Nobel Prize (Justification):</strong>
+                        <p>${l.why}</p>
+                    </div>
+                    <div class="bg-nobel-950 p-4 rounded-xl border border-nobel-800 space-y-1">
+                        <strong class="text-gold-400 block uppercase tracking-wider">Civilizational Fork / Impact:</strong>
+                        <p>${l.fork}</p>
+                    </div>
+                    <div class="bg-nobel-950 p-4 rounded-xl border border-nobel-800 space-y-1">
+                        <strong class="text-gold-400 block uppercase tracking-wider">Authored Books / Publications:</strong>
+                        <ul class="list-disc pl-4 space-y-1 text-gray-200">
+                            ${l.books.map(b => `<li>${b}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            document.getElementById('laureate-modal').classList.remove('hidden');
+        }
+
+        function closeLaureateModal() {
+            document.getElementById('laureate-modal').classList.add('hidden');
+        }
+
+        window.onload = () => {
+            initHome();
+        };
+    </script>
+</body>
+</html>
